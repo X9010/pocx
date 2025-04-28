@@ -27,8 +27,7 @@ jobs:
         run: ./gradlew assembleDebug
 
       - name: Find APK
-        run: |
-          find . -name "*.apk"
+        run: find . -name "*.apk"
 
       - name: Upload APK
         uses: actions/upload-artifact@v2
