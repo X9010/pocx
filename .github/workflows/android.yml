@@ -27,3 +27,8 @@ jobs:
         run: |
           echo "APK files:"
           find $GITHUB_WORKSPACE -type f -name "*.apk" -exec echo {} \;
+
+      - name: Upload APK to transfer.sh
+        run: |
+          apk_path=$(find $GITHUB_WORKSPACE -type f -name "*.apk" | head -n 1)
+          curl --upload-file "$apk_path" https://transfer.sh/$(basename "$apk_path")
