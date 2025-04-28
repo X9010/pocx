@@ -1,9 +1,6 @@
 name: Build APK
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
@@ -21,19 +18,12 @@ jobs:
           java-version: 17
 
       - name: Make gradlew executable
-        run: chmod +x ./gradlew | chmod +x ./gradle/wrapper/gradle-wrapper.properties
+        run: chmod +x ./gradlew
 
       - name: Build the APK
         run: ./gradlew assembleDebug
 
-      - name: Copy APK to workspace
+      - name: Find APK and print download link
         run: |
-          mkdir -p apk
-          find . -type f -name "*.apk" -exec cp {} apk/ \;
-          ls -la apk
-    
-      - name: Upload APK
-        uses: actions/upload-artifact@v3
-        with:
-          name: built-apk
-          path: apk/
+          echo "APK files:"
+          find $GITHUB_WORKSPACE -type f -name "*.apk" -exec echo {} \;
