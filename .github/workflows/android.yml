@@ -31,4 +31,9 @@ jobs:
           mkdir -p apk
           find . -type f -name "*.apk" -exec cp {} apk/ \;
           ls -la apk
-  
+    
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: built-apk
+          path: apk/
